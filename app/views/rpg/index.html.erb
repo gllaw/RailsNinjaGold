@@ -1,0 +1,72 @@
+<style>
+#container{
+	font-family: sans-serif;
+}
+.structure{
+	width: 17em;
+	height: 10em;
+	display: inline-block;
+	text-align: center;
+	border: 2px solid black;
+}
+p{
+	margin: 25px 0px;
+}
+</style>
+
+<body>
+	<div id="container">
+		<div id="yourgold">
+		<p>Your Gold: </p>
+		<textarea rows="1" cols="50"><%= session[:gold] %></textarea>
+		</div>
+
+		<div class="structure">
+			<h3 class="label">Farm</h3>
+			<p>(earns 10-20 golds)</p>
+			<form action="/rpg/farm" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div class="structure">
+			<h3 class="label">Cave</h3>
+			<p>(earns 5-10 golds)</p>
+			<form action="/rpg/cave" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input type="hidden" name="building" value="cave"/>
+				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div class="structure">
+			<h3 class="label">House</h3>
+			<p>(earns 2-5 golds)</p>
+			<form action="/rpg/house" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input type="hidden" name="building" value="house"/>
+				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div class="structure">
+			<h3 class="label">Casino</h3>
+			<p>(earns/takes 0-50 golds)</p>
+			<form action="/rpg/casino" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input type="hidden" name="building" value="casino"/>
+				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<p><label>Activities:</label></p>
+		<textarea rows="10" cols="85" name="activitieslog">
+			<% if session[:action] != nil %>
+			  <% session[:action].each do |e|%>
+			  <%= e %>
+			  <% end %>
+			<% end %>
+		</textarea>
+		<form action="/rpg/reset" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<input type="submit" value="New Game">
+		</form>
+	</div>
+</body>
